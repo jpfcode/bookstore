@@ -13,7 +13,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'ap
 db = SQLAlchemy(app)
 ma  = Marshmallow(app)
 heroku = Heroku(app)
-CORS()
+CORS(app)
 
 # Create database in python REPL
 # > python
@@ -45,6 +45,8 @@ def add_book():
       title = post_data.get('title')
       author = post_data.get('author')
       review = post_data.get('review', 'No reviews yet')
+      if review == '':
+         review = 'No reviews yet'
 
       record = Book(title, author, review)
 
